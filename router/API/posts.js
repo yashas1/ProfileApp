@@ -15,6 +15,7 @@ router.get("/",(req,res)=>{
     post.find()
     .sort({date:-1})
     .then(post=>{
+        
         res.json(post);
     })
     .catch(err=>res.status(404).json({err:"there are no posts"}))
@@ -65,10 +66,12 @@ newPost.save().then(post=>res.json(post));
 router.delete("/:id",passport.authenticate('jwt',{session:false}),(req,res)=>{
     profile.findOne({user:req.user.id})
     .then(profile=>{
+
      post.findById(req.params.id)
      .then(post=>{
-
-        if(post.user.toString!==req.user.id){
+         console.log(req.user.id)
+            console.log(post)
+        if(post.user.toString() !==req.user.id){
           return res.status(401).json({err: "user is not authorized"})
                      
         }
@@ -88,7 +91,7 @@ router.post("/likes/:id",passport.authenticate('jwt',{session:false}),(req,res)=
     .then(profile=>{
      post.findById(req.params.id)
      .then(post=>{
-      console.log(post)
+      
         if(post.likes.filter(like=>{return like.user.toString()===req.user.id}).length>0){
             
           return res.status(400).json({postalredyliked: "user already liked post"})
@@ -96,7 +99,7 @@ router.post("/likes/:id",passport.authenticate('jwt',{session:false}),(req,res)=
         }
 
         post.likes.push({user:req.user.id});
-        post.save().then(post=>res.json(post));
+        post.save().then(post=>{ console.log(post); res.json(post)});
 
        
 
@@ -116,18 +119,20 @@ router.post("/unlike/:id",passport.authenticate('jwt',{session:false}),(req,res)
     .then(profile=>{
      post.findById(req.params.id)
      .then(post=>{
-      console.log(post)
+      
         if(post.likes.filter(like=>like.user.toString()===req.user.id).length==0){
           return res.status(400).json({notliked: "you have not yet liked the post"})
                      
         }
         
 
-        const removeIndex = post.likes.findIndex(x=>{ x.user===req.user.id})
-    //  .map(iteam =>iteam.user.toString).indexOf(req.user.id);
-     console.log(removeIndex)
+        const removeIndex = post.likes
+        .map(item => item.user.toString())
+        .indexOf(req.user.id)
+     
+     console.log("Index"+removeIndex);
      post.likes.splice(removeIndex,1);
-
+             console.log(post)
         post.save().then(post=>res.json(post));
 
        

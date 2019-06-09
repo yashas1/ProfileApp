@@ -16,14 +16,13 @@ router.get("/test",(req,res)=>res.json({
 router.post("/register",(req,res)=>{
  
   const{ errors,isValid }=validateregister(req.body);
-console.log(isValid);
+// console.log(isValid);
   if(!isValid){
     return res.status(400).json(errors);
   }
 
-    console.log(req.body.name);
-user.findOne({email:req.body.email},(user,err)=>{
-
+   user.findOne({email:req.body.email},function (err,user) {
+  console.log(user);
         if(user){
              errors.email="email alreay exists"
             return res.status(400).json(errors);
@@ -55,7 +54,7 @@ user.findOne({email:req.body.email},(user,err)=>{
 
 
 
-})
+ })
 
 
 
@@ -72,7 +71,7 @@ console.log(email)
 user.findOne({email}).then(user=>{
     console.log(user);
     if(!user){
-     errors.email="user not found "
+     errors.email="user not found"
         return res.status(404).json(errors);
         
         }

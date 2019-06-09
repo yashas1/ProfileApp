@@ -99,8 +99,8 @@ router.post("/",passport.authenticate('jwt',{session:false}),(req,res)=>{
     if (req.body.location) profileFields.location = req.body.location;
     if (req.body.bio) profileFields.bio = req.body.bio;
     if (req.body.status) profileFields.status = req.body.status;
-    if (req.body.githubusername)
-      profileFields.githubusername = req.body.githubusername;
+    if (req.body.github)
+      profileFields.github = req.body.github;
  
     if (typeof req.body.skills !== 'undefined') {
       profileFields.skills = req.body.skills.split(',');
@@ -119,7 +119,7 @@ router.post("/",passport.authenticate('jwt',{session:false}),(req,res)=>{
  .then(Profile=>{
      console.log(Profile);
   if(Profile){
-   //if present then need to update
+   
    profile.findOneAndUpdate(
     { user: req.user.id },
     { $set: profileFields },
@@ -127,9 +127,7 @@ router.post("/",passport.authenticate('jwt',{session:false}),(req,res)=>{
   ).then(x => res.json(x));
 
   }else{
-   //if not presnt then need to create 
    
-//check if handle exists 
 profile.findOne({handle:profileFields.handle})
 .then(Profile=>{
     console.log("handle is there")
@@ -203,18 +201,14 @@ router.post("/education",passport.authenticate('jwt',{session:false}),(req,res)=
      description:req.body.discription
 
      }
-     if (profile.education.length>0){
-      res.status(400).json({err:"only you can add one educational details"});
-
-     }
-     else{
+     
      profile.education.unshift(neweducation);
       profile.save().then(profile=>{
          res.json(profile);
         
      })}
 
-    })
+    )
 })
 
 
@@ -266,7 +260,7 @@ router.delete("/",passport.authenticate('jwt',{session:false}),(req,res)=>{
     profile.findOneAndRemove({user:req.user.id})
     .then(()=>{
      user.findOneAndDelete({_id:req.user.id})
-     .then(()=> res.status(400).json({sucess:"sucess"}))
+     .then(()=> res.json({sucess:true}))
    
 
     }).catch(err=>res.status(404).json(err));
