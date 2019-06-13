@@ -46,6 +46,8 @@ this.props.getProfiles();
         <p className="text-center">Browse and connect with devlopers </p>
 
          {profileItems}
+         
+
 
 
          </div>
@@ -59,7 +61,7 @@ this.props.getProfiles();
 
          </div>
 
-
+   
 
         </div>
         
