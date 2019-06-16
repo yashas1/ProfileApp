@@ -51,7 +51,7 @@ if(nextprops){
 
      }
      
-     console.log("usp"+expData.company)
+     
     this.props.addExpirence(expData, this.props.history);
  }
 

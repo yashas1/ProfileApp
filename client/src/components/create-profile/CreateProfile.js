@@ -28,6 +28,7 @@ this.state = {
     instagram: '',
     errors: {}
   };
+  
 }
 
 componentWillReceiveProps(nextProps){
@@ -40,7 +41,7 @@ if(nextProps.errors){
 }
 
 onSubmit=(e)=>{
-
+  e.preventDefault();
  
   const profileData={
 

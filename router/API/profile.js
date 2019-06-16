@@ -130,7 +130,7 @@ router.post("/",passport.authenticate('jwt',{session:false}),(req,res)=>{
    
 profile.findOne({handle:profileFields.handle})
 .then(Profile=>{
-    console.log("handle is there")
+    
     if(Profile){
 errors.handle="that handle already exist"
 res.status(400).json(errors);
@@ -166,7 +166,7 @@ router.post("/exprience",passport.authenticate('jwt',{session:false}),(req,res)=
      from:req.body.from,
      to:req.body.to,
      current:req.body.current,
-     description:req.body.discription
+     description:req.body.description
 
      }
       profile.experience.unshift(newexp);
@@ -198,7 +198,7 @@ router.post("/education",passport.authenticate('jwt',{session:false}),(req,res)=
      from:req.body.from,
      to:req.body.to,
      current:req.body.current,
-     description:req.body.discription
+     description:req.body.description
 
      }
      

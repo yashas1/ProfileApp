@@ -14,6 +14,7 @@ import {connect} from 'react-redux';
    }
   render() {
     return (
+      
       <div className="landing">
         <div className="dark-overlay landing-inner text-light">
           <div className="container">
