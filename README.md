@@ -28,12 +28,6 @@ This Project code is available in the root folder of the project repository as U
     npm run dev
     ```
     
-### : 
-----
-<p align="center">
-  <img src="UserSessionTracker.gif" width="800" height="450" />
-</p>
-
 
 ### Contributions
 ----
