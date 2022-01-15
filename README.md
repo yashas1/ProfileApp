@@ -21,8 +21,10 @@ This Project code is available in the root folder of the project repository as U
     ```
     npm install
     ```
-    cd client and npm install
-    ```  
+    cd client 
+    ```
+    and npm install
+    ```
 - Run below command to execute the tracker on the server in http://localhost:3000 port.
     ```
     npm run dev
